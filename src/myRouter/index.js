@@ -12,7 +12,7 @@ export default class VueRouter {
     // 使用混入及beforeCreate钩子函数获取 Vue 实例
     _Vue.mixin({
       beforeCreate() {
-        // 排除组件，因为我们只在创建 Vue实例时传入了router对象，所以组件是没有的
+        // 只有在创建 Vue实例时传入了router对象，所以组件是没有的
         if (this.$options.router) {
           _Vue.prototype.$router = this.$options.router;
           // ^ 初始化 Vue Router

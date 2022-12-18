@@ -1,6 +1,7 @@
 import Vue from "vue";
-// import VueRouter from 'vue-router'
-import VueRouter from "@/myRouter";
+// import VueRouter from "vue-router";
+// import VueRouter from "@/myRouter";
+import VueRouter from "@/myRouterV2";
 import HomeView from "../views/HomeView.vue";
 
 Vue.use(VueRouter);
@@ -10,6 +11,26 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/music",
+    name: "music",
+    component: () =>
+      import(/* webpackChunkName: "music" */ "../views/music/Index.vue"),
+    children: [
+      {
+        path: "pop",
+        name: "pop",
+        component: () =>
+          import(/* webpackChunkName: "popMusic" */ "../views/music/Pop.vue"),
+      },
+      {
+        path: "rock",
+        name: "rock",
+        component: () =>
+          import(/* webpackChunkName: "rockMusic" */ "../views/music/Rock.vue"),
+      },
+    ],
   },
   {
     path: "/about",
@@ -28,7 +49,12 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  // mode: "history",
   routes,
+});
+
+router.beforeEach((to, from) => {
+  console.log("beforeEach:", to, from);
 });
 
 export default router;
