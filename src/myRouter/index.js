@@ -24,9 +24,11 @@ export default class VueRouter {
 
   constructor(options) {
     this.options = options;
+    // 记录路径和对应的组件
     this.routeMap = {};
     this.data = _Vue.observable({
-      current: "/",
+      // current: "/",
+      current: window.location.pathname,
     });
   }
 
@@ -82,7 +84,12 @@ export default class VueRouter {
     Vue.component("router-view", {
       render(h) {
         // 根据当前路由地址获取对相应组件
-        const curComp = self.routeMap[self.data.current];
+        const curPath = self.data.current;
+        let curComp = self.routeMap[curPath];
+        // 路由不存在匹配组件时
+        if (!curComp) {
+          curComp = self.routeMap["*"];
+        }
         return h(curComp);
       },
     });
