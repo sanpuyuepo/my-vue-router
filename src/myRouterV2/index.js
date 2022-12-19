@@ -33,7 +33,6 @@ export default class VueRouter {
    * @param {Object} app vue 实例
    */
   init(app) {
-    console.log(app);
     const history = this.history;
 
     const setupListener = () => {

@@ -10,7 +10,7 @@ export default function createMatcher(routes) {
    * @returns
    */
   function match(path) {
-    // console.log(path);
+    path = pathList.includes(path) ? path : "*";
     const record = pathMap[path];
     if (record) {
       return createRoute(record, path);
